@@ -1,0 +1,41 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "personal_assistant"
+version = "0.0.1"
+description = "Uma IA que responde do mesmo jeito que eu"
+authors = [
+  { name = "Yan Camp\u00ealo das Chagas" },
+]
+
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    
+]
+dependencies = [
+    "loguru",
+    "mkdocs",
+    "pip",
+    "python-dotenv",
+    "ruff",
+    "tqdm",
+    "typer",
+]
+requires-python = "~=3.12.0"
+
+
+[tool.ruff]
+line-length = 99
+src = ["personal_assistant"]
+include = ["pyproject.toml", "personal_assistant/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["personal_assistant"]
+force-sort-within-sections = true
+
