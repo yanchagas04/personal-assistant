@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Dataset - Clone de Estilo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px 80px 20px;
+      line-height: 1.5;
+    }
+    h1 { color: #38bdf8; font-size: 24px; margin-bottom: 8px; }
+    p.desc { color: #94a3b8; font-size: 14px; margin-bottom: 32px; }
+    h2 { color: #f8fafc; font-size: 18px; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-top: 36px; }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; font-size: 15px; }
+    textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      color: #fff;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 60px;
+    }
+    textarea:focus { outline: none; border-color: #38bdf8; }
+    .btn-container {
+      position: sticky;
+      bottom: 20px;
+      background: #0f172a;
+      padding: 16px 0;
+      border-top: 1px solid #334155;
+      display: flex;
+      justify-content: flex-end;
+    }
+    button {
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #0369a1; }
+  </style>
+</head>
+<body>
+
+  <h1>Gerador de Dataset para Fine-Tuning</h1>
+  <p class="desc">Responda às perguntas abaixo exatamente como você responderia numa mensagem rápida de chat. Perguntas deixadas em branco serão ignoradas na exportação.</p>
+
+  <form id="quizForm">
+    <!-- Bloco 1: Casual & Amigos -->
+    <h2>1. Rolê & Amigos</h2>
+    <div class="card">
+      <label>1. E aí, bora sair hoje à noite?</label>
+      <textarea data-q="E aí, bora sair hoje à noite?"></textarea>
+    </div>
+    <div class="card">
+      <label>2. Vai colar no churrasco amanhã?</label>
+      <textarea data-q="Vai colar no churrasco amanhã?"></textarea>
+    </div>
+    <div class="card">
+      <label>3. Onde você tá? Já chegou?</label>
+      <textarea data-q="Onde você tá? Já chegou?"></textarea>
+    </div>
+    <div class="card">
+      <label>4. Bora jogar alguma coisa mais tarde?</label>
+      <textarea data-q="Bora jogar alguma coisa mais tarde?"></textarea>
+    </div>
+    <div class="card">
+      <label>5. Vi aquele jogo/filme novo, achou bom?</label>
+      <textarea data-q="Vi aquele jogo/filme novo, achou bom?"></textarea>
+    </div>
+    <div class="card">
+      <label>6. Tô chegando aí em 10 minutos, beleza?</label>
+      <textarea data-q="Tô chegando aí em 10 minutos, beleza?"></textarea>
+    </div>
+    <div class="card">
+      <label>7. Mano, viu o que aconteceu hoje na internet?</label>
+      <textarea data-q="Mano, viu o que aconteceu hoje na internet?"></textarea>
+    </div>
+    <div class="card">
+      <label>8. Que lugar você recomenda pra comer barato por aqui?</label>
+      <textarea data-q="Que lugar você recomenda pra comer barato por aqui?"></textarea>
+    </div>
+    <div class="card">
+      <label>9. Tem como me passar o contato daquela pessoa?</label>
+      <textarea data-q="Tem como me passar o contato daquela pessoa?"></textarea>
+    </div>
+    <div class="card">
+      <label>10. Vale a pena comprar esse fone/mouse que tá na promoção?</label>
+      <textarea data-q="Vale a pena comprar esse fone/mouse que tá na promoção?"></textarea>
+    </div>
+
+    <!-- Bloco 2: Trabalho, Estudos & Projetos -->
+    <h2>2. Projetos, Estudos & Tecnologia</h2>
+    <div class="card">
+      <label>11. Conseguiu rodar aquele container no Docker ou deu erro?</label>
+      <textarea data-q="Conseguiu rodar aquele container no Docker ou deu erro?"></textarea>
+    </div>
+    <div class="card">
+      <label>12. Deu ruim numa query do banco aqui, manja o que pode ser?</label>
+      <textarea data-q="Deu ruim numa query do banco aqui, manja o que pode ser?"></textarea>
+    </div>
+    <div class="card">
+      <label>13. Já subiu as alterações pro repositório?</label>
+      <textarea data-q="Já subiu as alterações pro repositório?"></textarea>
+    </div>
+    <div class="card">
+      <label>14. Tem como me explicar rápido como funciona essa parte do código?</label>
+      <textarea data-q="Tem como me explicar rápido como funciona essa parte do código?"></textarea>
+    </div>
+    <div class="card">
+      <label>15. Acha melhor usar SQL ou NoSQL pra essa aplicação?</label>
+      <textarea data-q="Acha melhor usar SQL ou NoSQL pra essa aplicação?"></textarea>
+    </div>
+    <div class="card">
+      <label>16. Já terminou o relatório/estudo pra reunião?</label>
+      <textarea data-q="Já terminou o relatório/estudo pra reunião?"></textarea>
+    </div>
+    <div class="card">
+      <label>17. Pode revisar meu PR antes de fazer o merge?</label>
+      <textarea data-q="Pode revisar meu PR antes de fazer o merge?"></textarea>
+    </div>
+    <div class="card">
+      <label>18. Como você estuda pra prova/concurso sem perder o foco?</label>
+      <textarea data-q="Como você estuda pra prova/concurso sem perder o foco?"></textarea>
+    </div>
+    <div class="card">
+      <label>19. A API tá caindo direto em produção, sabe o que houve?</label>
+      <textarea data-q="A API tá caindo direto em produção, sabe o que houve?"></textarea>
+    </div>
+    <div class="card">
+      <label>20. Qual distro Linux você prefere pra servidor/dev?</label>
+      <textarea data-q="Qual distro Linux você prefere pra servidor/dev?"></textarea>
+    </div>
+
+    <!-- Bloco 3: Recusas & Limites -->
+    <h2>3. Recusas & Sem Tempo</h2>
+    <div class="card">
+      <label>21. Pode entrar numa call rápida de 5 minutos agora?</label>
+      <textarea data-q="Pode entrar numa call rápida de 5 minutos agora?"></textarea>
+    </div>
+    <div class="card">
+      <label>22. Consegue fazer esse favor pra mim hoje sem falta?</label>
+      <textarea data-q="Consegue fazer esse favor pra mim hoje sem falta?"></textarea>
+    </div>
+    <div class="card">
+      <label>23. Vamos marcar um almoço essa semana?</label>
+      <textarea data-q="Vamos marcar um almoço essa semana?"></textarea>
+    </div>
+    <div class="card">
+      <label>24. Dá pra você cobrir meu turno/tarefa hoje?</label>
+      <textarea data-q="Dá pra você cobrir meu turno/tarefa hoje?"></textarea>
+    </div>
+    <div class="card">
+      <label>25. Você viu minha última mensagem? Por que não respondeu?</label>
+      <textarea data-q="Você viu minha última mensagem? Por que não respondeu?"></textarea>
+    </div>
+    <div class="card">
+      <label>26. Empresta aquela sua ferramenta/acessório esse fim de semana?</label>
+      <textarea data-q="Empresta aquela sua ferramenta/acessório esse fim de semana?"></textarea>
+    </div>
+    <div class="card">
+      <label>27. Queria desabafar um negócio com você, tem um tempo?</label>
+      <textarea data-q="Queria desabafar um negócio com você, tem um tempo?"></textarea>
+    </div>
+    <div class="card">
+      <label>28. O que acha de investir nessa nova parada que tá todo mundo falando?</label>
+      <textarea data-q="O que acha de investir nessa nova parada que tá todo mundo falando?"></textarea>
+    </div>
+    <div class="card">
+      <label>29. Vamos acordar cedo sábado pra dar uma caminhada?</label>
+      <textarea data-q="Vamos acordar cedo sábado pra dar uma caminhada?"></textarea>
+    </div>
+    <div class="card">
+      <label>30. Pode adiantar a entrega disso pra hoje à tarde?</label>
+      <textarea data-q="Pode adiantar a entrega disso pra hoje à tarde?"></textarea>
+    </div>
+
+    <!-- Bloco 4: Opiniões & Discordâncias -->
+    <h2>4. Opiniões & Discordâncias</h2>
+    <div class="card">
+      <label>31. Acho que essa solução que você propôs tá muito complicada, não?</label>
+      <textarea data-q="Acho que essa solução que você propôs tá muito complicada, não?"></textarea>
+    </div>
+    <div class="card">
+      <label>32. Discordo totalmente disso que você falou no grupo.</label>
+      <textarea data-q="Discordo totalmente disso que você falou no grupo."></textarea>
+    </div>
+    <div class="card">
+      <label>33. Qual sua peça de hardware favorita pro setup?</label>
+      <textarea data-q="Qual sua peça de hardware favorita pro setup?"></textarea>
+    </div>
+    <div class="card">
+      <label>34. Você prefere pedir comida ou cozinhar em casa?</label>
+      <textarea data-q="Você prefere pedir comida ou cozinhar em casa?"></textarea>
+    </div>
+    <div class="card">
+      <label>35. Compensa pegar transporte por aplicativo ou ir de transporte público hoje?</label>
+      <textarea data-q="Compensa pegar transporte por aplicativo ou ir de transporte público hoje?"></textarea>
+    </div>
+    <div class="card">
+      <label>36. O que você acha de café expresso vs solúvel?</label>
+      <textarea data-q="O que você acha de café expresso vs solúvel?"></textarea>
+    </div>
+    <div class="card">
+      <label>37. Vale a pena trocar de celular todo ano?</label>
+      <textarea data-q="Vale a pena trocar de celular todo ano?"></textarea>
+    </div>
+    <div class="card">
+      <label>38. O que você faz quando tá travado num problema técnico?</label>
+      <textarea data-q="O que você faz quando tá travado num problema técnico?"></textarea>
+    </div>
+    <div class="card">
+      <label>39. Você liga se demorarem pra te responder no zap?</label>
+      <textarea data-q="Você liga se demorarem pra te responder no zap?"></textarea>
+    </div>
+    <div class="card">
+      <label>40. Acha que inteligência artificial vai tirar o trampo de dev logo?</label>
+      <textarea data-q="Acha que inteligência artificial vai tirar o trampo de dev logo?"></textarea>
+    </div>
+
+    <!-- Bloco 5: Rotina & Burocracia -->
+    <h2>5. Rotina, Logística & Família</h2>
+    <div class="card">
+      <label>41. Já almoçou hoje?</label>
+      <textarea data-q="Já almoçou hoje?"></textarea>
+    </div>
+    <div class="card">
+      <label>42. Pode trazer um pão/lanche quando voltar?</label>
+      <textarea data-q="Pode trazer um pão/lanche quando voltar?"></textarea>
+    </div>
+    <div class="card">
+      <label>43. Que horas você vai sair daí?</label>
+      <textarea data-q="Que horas você vai sair daí?"></textarea>
+    </div>
+    <div class="card">
+      <label>44. Chegou aquela encomenda que você tava esperando?</label>
+      <textarea data-q="Chegou aquela encomenda que você tava esperando?"></textarea>
+    </div>
+    <div class="card">
+      <label>45. Vai dar carona pra alguém hoje?</label>
+      <textarea data-q="Vai dar carona pra alguém hoje?"></textarea>
+    </div>
+    <div class="card">
+      <label>46. Me manda sua chave Pix pra eu acertar aquele valor.</label>
+      <textarea data-q="Me manda sua chave Pix pra eu acertar aquele valor."></textarea>
+    </div>
+    <div class="card">
+      <label>47. Conseguiu resolver aquele documento no cartório/banco?</label>
+      <textarea data-q="Conseguiu resolver aquele documento no cartório/banco?"></textarea>
+    </div>
+    <div class="card">
+      <label>48. O que vai fazer no feriado?</label>
+      <textarea data-q="O que vai fazer no feriado?"></textarea>
+    </div>
+    <div class="card">
+      <label>49. Tem remédio pra dor de cabeça aí?</label>
+      <textarea data-q="Tem remédio pra dor de cabeça aí?"></textarea>
+    </div>
+    <div class="card">
+      <label>50. Consegue falar no telefone rapidinho?</label>
+      <textarea data-q="Consegue falar no telefone rapidinho?"></textarea>
+    </div>
+
+    <div class="btn-container">
+      <button type="button" onclick="gerarJSONL()">Exportar dataset.jsonl</button>
+    </div>
+  </form>
+
+  <script>
+    function gerarJSONL() {
+      const textareas = document.querySelectorAll('textarea');
+      let linhas = [];
+      const systemPrompt = "Você é o clone digital do usuário. Responda diretamente, de forma concisa e mantendo o tom informal e autêntico.";
+
+      textareas.forEach(t => {
+        const resp = t.value.trim();
+        const quest = t.getAttribute('data-q');
+        
+        // Exporta apenas perguntas respondidas
+        if (resp.length > 0) {
+          const item = {
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: quest },
+              { role: "assistant", content: resp }
+            ]
+          };
+          linhas.push(JSON.stringify(item));
+        }
+      });
+
+      if (linhas.length === 0) {
+        alert("Preencha pelo menos uma resposta antes de exportar.");
+        return;
+      }
+
+      const blob = new Blob([linhas.join('\n') + '\n'], { type: 'application/jsonl;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'dataset_estilo.jsonl';
+      link.click();
+    }
+  </script>
+</body>
+</html>
