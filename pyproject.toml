@@ -18,6 +18,7 @@ classifiers = [
 dependencies = [
     "loguru",
     "mkdocs",
+    "ollama>=0.6.2",
     "pip",
     "python-dotenv",
     "ruff",
