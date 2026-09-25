@@ -126,7 +126,7 @@ def test_model_inference(model_name: str, prompt: str) -> str:
 
 @app.command()
 def main(
-    dataset_path: Path = PROCESSED_DATA_DIR / "chat_dataset_sample25.jsonl",
+    dataset_path: Path = PROCESSED_DATA_DIR / "personal-answers.jsonl",
     modelfile_path: Path = MODELS_DIR / "Modelfile.yan_clone",
     base_model: str = "llama3.2",
     model_name: str = "yan-clone",

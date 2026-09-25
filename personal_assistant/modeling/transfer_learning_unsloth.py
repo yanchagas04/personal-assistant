@@ -168,7 +168,7 @@ def export_to_gguf(
 
 @app.command()
 def main(
-    dataset_path: Path = PROCESSED_DATA_DIR / "chat_dataset_sample25.jsonl",
+    dataset_path: Path = PROCESSED_DATA_DIR / "personal-answers.jsonl",
     model_name: str = "unsloth/Llama-3.2-3B-Instruct",
     output_dir: Path = MODELS_DIR / "yan_clone_unsloth",
     gguf_output_dir: Path = MODELS_DIR / "yan_clone_gguf",
