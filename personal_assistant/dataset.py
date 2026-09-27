@@ -2,7 +2,9 @@
 Módulo para processamento de chats exportados pelo WhatsApp.
 
 Transforma conversas exportadas do WhatsApp em diálogos estruturados
-compatíveis com formatos de fine-tuning (ex: OpenAI / ChatML).
+compatíveis com formatos de fine-tuning (ex: OpenAI / ChatML) para
+transfer learning exclusivo a partir do WhatsApp, sem utilização de
+respostas de formulário e sem limitação de 25 conversas.
 """
 
 from datetime import datetime, timedelta
@@ -326,69 +328,6 @@ def classify_dialogue_topics(dialogue: dict[str, Any]) -> list[str]:
     return matched if matched else ["outros"]
 
 
-def select_diverse_conversations(
-    dialogues: list[dict[str, Any]],
-    n: int = 25,
-    seed: int = 42,
-) -> list[dict[str, Any]]:
-    """
-    Seleciona um subconjunto balanceado e representativo de conversas entre diversos tópicos e comprimentos de conversação (turno único e múltiplos turnos).
-    """
-    if len(dialogues) <= n:
-        return dialogues
-
-    # Distribuição alvo para 25 conversas
-    topic_targets: dict[str, int] = {
-        "comida_restaurante": 3,
-        "faculdade_estudos": 4,
-        "tecnologia_hardware": 4,
-        "financas_compras": 4,
-        "jogos_games": 4,
-        "transporte_viagem": 3,
-        "humor_cotidiano": 3,
-    }
-
-    selected_indices: set[int] = set()
-    selected_dialogues: list[dict[str, Any]] = []
-
-    for topic, target_count in topic_targets.items():
-        kws = TOPIC_KEYWORDS[topic]
-        scored_candidates: list[tuple[float, int]] = []
-
-        for idx, d in enumerate(dialogues):
-            if idx in selected_indices:
-                continue
-
-            text = " ".join(msg["content"].lower() for msg in d["messages"][1:])
-            kw_matches = sum(1 for kw in kws if kw in text)
-            if kw_matches > 0:
-                total_len = sum(len(m["content"]) for m in d["messages"][1:])
-                has_http = "http" in text
-                # Prefere diálogos conversacionais ricos sem conteúdo pesado de links
-                score = (
-                    kw_matches * 15.0 + min(total_len, 350) / 10.0 - (40.0 if has_http else 0.0)
-                )
-                scored_candidates.append((score, idx))
-
-        scored_candidates.sort(key=lambda x: x[0], reverse=True)
-        picked = [idx for _, idx in scored_candidates[:target_count]]
-
-        for p in picked:
-            selected_indices.add(p)
-            selected_dialogues.append(dialogues[p])
-
-    # Fallback caso algum tópico fique sem representantes
-    if len(selected_dialogues) < n:
-        for idx, d in enumerate(dialogues):
-            if idx not in selected_indices:
-                selected_indices.add(idx)
-                selected_dialogues.append(d)
-                if len(selected_dialogues) == n:
-                    break
-
-    return selected_dialogues[:n]
-
-
 def save_jsonl(dialogues: list[dict[str, Any]], output_path: Path) -> None:
     """Saves dialogues to a JSONL file."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -400,13 +339,11 @@ def save_jsonl(dialogues: list[dict[str, Any]], output_path: Path) -> None:
 def main(
     input_path: Path = RAW_DATA_DIR / "chat.txt",
     output_path: Path = PROCESSED_DATA_DIR / "chat_dataset.jsonl",
-    sample_output_path: Path = PROCESSED_DATA_DIR / "chat_dataset_sample25.jsonl",
     max_gap_minutes: float = 20.0,
-    sample_size: int = 25,
     assistant_name: str = "Você",
     clone_name: str = "Yan Chagas",
 ) -> None:
-    """Pipeline de CLI para transformar chat bruto do WhatsApp em dataset de diálogos em JSONL."""
+    """Pipeline de CLI para transformar chat bruto do WhatsApp em dataset completo de diálogos em JSONL."""
     logger.info(f"Lendo e processando chat bruto de: {input_path}")
     if not input_path.exists():
         logger.error(f"Arquivo de entrada não encontrado: {input_path}")
@@ -427,16 +364,9 @@ def main(
     )
     logger.info(f"Construídos {len(dialogues)} diálogos válidos.")
 
-    # Salva dataset completo
+    # Salva dataset completo (todas as conversas do WhatsApp, sem respostas de formulário e sem limite de 25)
     save_jsonl(dialogues, output_path)
     logger.success(f"Dataset completo salvo em: {output_path} ({len(dialogues)} diálogos)")
-
-    # Seleciona e salva amostra diversificada de 25 conversas
-    sample_dialogues = select_diverse_conversations(dialogues, n=sample_size)
-    save_jsonl(sample_dialogues, sample_output_path)
-    logger.success(
-        f"Amostra salva em: {sample_output_path} ({len(sample_dialogues)} diálogos diversificados)"
-    )
 
 
 if __name__ == "__main__":
