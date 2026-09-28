@@ -70,8 +70,10 @@ def build_modelfile_content(
         for msg in messages:
             role = msg.get("role")
             if role in ["user", "assistant"]:
-                sanitized_content = msg.get("content", "").replace('"', '\\"')
-                lines.append(f'MESSAGE {role} "{sanitized_content}"')
+                content = msg.get("content", "").strip()
+                if content:
+                    sanitized_content = content.replace('"""', r'\"\"\"')
+                    lines.append(f'MESSAGE {role} """\n{sanitized_content}\n"""')
         included += 1
         if included >= max_examples:
             break
